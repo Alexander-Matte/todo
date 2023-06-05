@@ -1,12 +1,9 @@
-import _ from 'lodash';
+import { TaskApp } from "./modules/TaskApp";
 
-function component() {
-    const element = document.createElement('div');
-  
-    // Lodash, currently included via import
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  
-    return element;
-  }
-  
-  document.body.appendChild(component());
+let taskApp = new TaskApp();
+taskApp.addProject("Home");
+taskApp.addProject("school");
+taskApp.addProject("work");
+taskApp.addProject("backyard");
+taskApp.removeProject("Home");
+console.log(taskApp);
