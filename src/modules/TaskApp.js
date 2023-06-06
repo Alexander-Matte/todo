@@ -1,10 +1,11 @@
 import { Project } from "./Project";
+import { Todo } from "./Todo";
 
 export class TaskApp {
     projectsArray = [];
 
     constructor(){
-        console.log("List created");
+        console.log("App Started");
     }
 
     addProject (project) {
@@ -18,4 +19,5 @@ export class TaskApp {
             }
         }
     }
+
 }
