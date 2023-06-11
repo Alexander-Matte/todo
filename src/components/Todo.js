@@ -5,4 +5,7 @@ export class Todo {
         this.dueDate = dueDate
         this.priortiy = priority
     }
+
+    
+
 }
