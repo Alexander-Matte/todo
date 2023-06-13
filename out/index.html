@@ -12,25 +12,25 @@
       <div class="header">Todo List</div>
       <div class="row">
         <div class="sidebar col-md-3 d-flex flex-column pt-2 pb-2">
-          <button id="add-proj" class="btn btn-outline-dark">Click me to add a Project</button>
+          <button id="viewAllProjects" class="btn btn-outline-dark">Click me to see all projects</button>
+            <form id="projectForm" method="">
+              <label for="projectName">Add Project</label>
+              <input type="text" name="projectName" id="projectName" minlength="2" maxlength="25" placeholder="Add Project Here">
+              <button type="submit">Submit</button>
+            </form>
+
           <ul class="project-list mt-2">
-            <li class="proj-li">I am Proj 1</li>
-            <li class="proj-li">I am Proj 2</li>
-            <li class="proj-li">I am Proj 3</li>
-            <li class="proj-li">I am Proj 4</li>
+            <li class="proj-li">I am a test Proj1</li>
+            <li class="proj-li">I am a test Proj2</li>
+            <li class="proj-li">I am a test Proj3</li>
           </ul>
 
         </div>
         <div class="content-container col-md-9">
           <div class="content-header text-center mb-3">Title for which project is being displayed</div>
           <div class="content">
-            <button id="add-task" class="btn btn-outline-dark">Click me to add a Task</button>
+            <button id="viewAllTasks" class="btn btn-outline-dark">Click me to see all tasks</button>
             <ul id="todo-list">
-              <li class="todo-li">Test Todo</li>
-              <li class="todo-li">Test Todo</li>
-              <li class="todo-li">Test Todo</li>
-              <li class="todo-li">Test Todo</li>
-              <li class="todo-li">Test Todo</li>
               <li class="todo-li">Test Todo</li>
             </ul>
           </div>

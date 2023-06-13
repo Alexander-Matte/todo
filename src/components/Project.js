@@ -1,5 +1,5 @@
 export class Project {
-    todos = [];
+    tasks = [];
 
 
     constructor (name) {
@@ -7,13 +7,13 @@ export class Project {
     }
 
     addTodo (todoObj) {
-        this.todos.push(todoObj);
+        this.tasks.push(todoObj);
     }
 
     removeTodo (todoTitle) {
-        for (let i = this.todos.length - 1; i >= 0; --i) {
-            if (this.todos[i].title === todoTitle) {
-                this.todos.splice(i,1);
+        for (let i = this.tasks.length - 1; i >= 0; --i) {
+            if (this.tasks[i].title === todoTitle) {
+                this.tasks.splice(i,1);
             }
         }
     }

@@ -1,12 +1,16 @@
 export function renderProjects(arr) {
     arr.forEach(element => {
-        console.log(element);
+        console.log(element.name);
     });
 }
 
-export function renderTodos(arr) {
-    arr.forEach(element => {
-        console.log(element);
+export function renderAllTasks(arr) {
+    arr.forEach(project => {
+        project.tasks.forEach(el => {
+            console.log(el);
+        })
     });
 }
+
+
 
