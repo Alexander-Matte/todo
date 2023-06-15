@@ -20,5 +20,13 @@ export class TaskApp {
             }
         }
     }
+    //returns the project object from array
+    getProject (projectName) {
+        for (let i = this.projects.length - 1; i >= 0; --i) {
+            if (this.projects[i].name === projectName) {
+                return this.projects[i];
+            }
+        }
+    }
 
 }
