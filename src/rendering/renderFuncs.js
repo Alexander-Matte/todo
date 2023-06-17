@@ -1,15 +1,30 @@
+import { createTaskTemplate } from "../tpl/taskTemplate";
+
 export function renderProjects(arr) {
     arr.forEach(project => {
         console.log(project.name);
     });
 }
 
-export function renderAllTasks(arr) {
-    arr.forEach(project => {
-        project.tasks.forEach(el => {
-            console.log(el);
-        })
+export function renderAllTasks(projectsArr) {
+    projectsArr.forEach(project => {
+        renderTasks(project);
     });
+}
+
+export function renderTasks(project) {
+    let taskUl = document.querySelector("#task-list")
+    let projTasks = project.tasks;
+    projTasks.forEach(task => {
+        let liContent = createTaskTemplate(task);
+        let li = document.createElement("li");
+        li.classList.add("task-li");
+        li.innerHTML = liContent;
+        taskUl.appendChild(li);
+    });
+    
+
+
 }
 
 export function renderProjLi (project) {
@@ -25,15 +40,16 @@ export function renderProjLi (project) {
 }
 
 export function renderProject (project) {
-    renderContentHeader(project)
-    let taskArr = project.tasks;
-    if (!taskArr.length){
-        console.log("NO TASKS IN THIS PROJECT")
-    } else {
-        taskArr.forEach(task => {
-            console.log(task);
-        })
-    }
+    renderContentHeader(project);
+    renderTasks(project);
+    // let taskArr = project.tasks;
+    // if (!taskArr.length){
+    //     console.log("NO TASKS IN THIS PROJECT")
+    // } else {
+    //     taskArr.forEach(task => {
+    //         console.log(task);
+    //     })
+    // }
 }
 
 function renderContentHeader (project) {

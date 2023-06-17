@@ -1,11 +1,12 @@
 import { TaskApp } from "./components/TaskApp";
 import { Todo } from "./components/Todo";
 import { getProjectName } from "./helpers";
-import { renderProjects, renderAllTasks, renderProjLi } from "./rendering/renderFuncs";
+import { renderProjects, renderAllTasks, renderProjLi, renderProject, renderTasks } from "./rendering/renderFuncs";
 
 
 // //initialize the app
 let taskApp = new TaskApp();
+renderProject(taskApp.getProject("All"));
 
 
 // Add test projects to the task app
@@ -19,9 +20,12 @@ taskApp.addProject("backyard");
 
 
 // add test tasks to the projects
-taskApp.projects[0].addTodo(new Todo("Hello1","testing", "21-21-21","low"));
-taskApp.projects[1].addTodo(new Todo("Hello2","tblahhhs", "35-56-18","Med"));
-taskApp.projects[2].addTodo(new Todo("asdfasdf3","testingasdfasdfsadf", "02-05-1969","high"));
+taskApp.projects[1].addTodo(new Todo("Hello1","testing", "21-21-21","low"));
+taskApp.projects[1].addTodo(new Todo("Hello2","testing", "21-21-21","low"));
+taskApp.projects[1].addTodo(new Todo("Hello3","testing", "21-21-21","low"));
+taskApp.projects[1].addTodo(new Todo("Hello4","testing", "21-21-21","low"));
+taskApp.projects[2].addTodo(new Todo("Hello2","tblahhhs", "35-56-18","Med"));
+taskApp.projects[3].addTodo(new Todo("asdfasdf3","testingasdfasdfsadf", "02-05-1969","high"));
 
 
 // //Removes a todo from the projects
@@ -54,7 +58,7 @@ form.addEventListener("submit", (e) => {
     form.reset();
 
 });
-
+console.log(taskApp);
 
 //TODO:
 //If one click on a project, it should update the header in content page and display the option to add a todo to the project.

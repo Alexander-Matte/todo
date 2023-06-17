@@ -30,6 +30,19 @@ body {
     border: 1px solid forestgreen;
 }
 
-.proj-li, .todo-li{
+.proj-li, .task-li{
     list-style-type: none;
 }
+
+.task-li {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.task-li .btn-group {
+    display: flex;
+    gap: 5px;
+}
+
+
