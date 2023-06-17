@@ -34,7 +34,7 @@ export function renderProjLi (project) {
     li.classList.add("proj-li");
     li.innerText = name;
     li.addEventListener("click", () => {
-        renderProject(project)
+        renderProject(project);
     })
     ul.appendChild(li);
 }

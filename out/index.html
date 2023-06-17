@@ -25,6 +25,11 @@
         <div class="content-container col-md-9">
           <div class="content-header text-center mb-3">Title for which project is being displayed</div>
           <div class="content">
+            <div class="task-input-form">
+              <label for="add-task">Add Task</label>
+              <input type="text" name="add-task" id="add-task" minlength="2" maxlength="25" placeholder="Add task">
+              <button type="submit">Submit</button>
+            </div>
             <button id="viewAllTasks" class="btn btn-outline-dark">Click me to see all tasks</button>
             <ul id="task-list"></ul>
           </div>

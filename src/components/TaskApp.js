@@ -7,6 +7,7 @@ export class TaskApp {
     constructor(){
         console.log("App Started");
         this.addProject("All");
+        this.currentSelected = this.getProject("All");
     }
 
     addProject (projectName) {

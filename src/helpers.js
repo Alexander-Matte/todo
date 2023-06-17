@@ -3,3 +3,7 @@ export function getProjectName() {
     return projectName;
 }
 
+export function getSelectedProject() {
+    return document.querySelector(".content-header").innerHTML;
+
+}

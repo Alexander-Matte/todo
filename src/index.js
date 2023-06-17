@@ -1,6 +1,6 @@
 import { TaskApp } from "./components/TaskApp";
 import { Todo } from "./components/Todo";
-import { getProjectName } from "./helpers";
+import { getProjectName, getSelectedProject } from "./helpers";
 import { renderProjects, renderAllTasks, renderProjLi, renderProject, renderTasks } from "./rendering/renderFuncs";
 
 
@@ -55,10 +55,11 @@ form.addEventListener("submit", (e) => {
     taskApp.addProject(projName);
     let project = taskApp.getProject(projName);
     renderProjLi(project);
+    taskApp.selected = getSelectedProject();
     form.reset();
-
 });
-console.log(taskApp);
+
+
 
 //TODO:
 //If one click on a project, it should update the header in content page and display the option to add a todo to the project.
