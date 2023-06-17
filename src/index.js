@@ -1,8 +1,7 @@
-import { Project } from "./components/Project";
 import { TaskApp } from "./components/TaskApp";
 import { Todo } from "./components/Todo";
 import { getProjectName } from "./helpers";
-import { renderProjects, renderAllTasks, renderNewProject, renderProjTasks } from "./rendering/renderFuncs";
+import { renderProjects, renderAllTasks, renderProjLi } from "./rendering/renderFuncs";
 
 
 // //initialize the app
@@ -49,18 +48,22 @@ const form = document.querySelector("#projectForm");
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     let projName = getProjectName();
-    let projObj = taskApp.getProject(projName);
     taskApp.addProject(projName);
-    renderNewProject(projName);
-    document.querySelector('.proj-li').addEventListener("click", () => {
-        renderProjTasks(projObj);
-    })
+    let project = taskApp.getProject(projName);
+    renderProjLi(project);
     form.reset();
 
 });
 
 
-
+//TODO:
+//If one click on a project, it should update the header in content page and display the option to add a todo to the project.
+// On the app init, it should come preloaded with a project called "All" which displays all the todos of the app
+// Look into making a template for the content page for when a project doest have any todos. And then maybe a template for when a project does have todos
+    // For example at the top of the page when a project has todos, maybe display "There are no todos in this project, click here to add a todo!"
+// Figure out how the user will enter their todo. z.B Modal? Static form at top of page?
+// How to persist data when page is refreshed. Look into how to store locally. Look at TOP instructions
+// 
 
 
 
