@@ -3,11 +3,6 @@ export function getProjectName() {
     return projectName;
 }
 
-export function getSelectedProject() {
-    return document.querySelector(".content-header").innerHTML;
-
-}
-
 export function clearContent() {
     let contentTasks = document.querySelectorAll(".task-li");
     contentTasks.forEach(task => {
