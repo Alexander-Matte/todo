@@ -1,12 +1,6 @@
 import { updateContentHeader } from "../helpers";
 import { createTaskTemplate } from "../tpl/taskTemplate";
 
-export function renderAllTasks(projectsArr) {
-    projectsArr.forEach(project => {
-        renderTasks(project);
-    });
-}
-
 export function renderTasks(project) {
     let taskUl = document.querySelector("#task-list")
     let projTasks = project.tasks;
@@ -17,7 +11,6 @@ export function renderTasks(project) {
         li.innerHTML = liContent;
         taskUl.appendChild(li);
     });
-    
 }
 
 export function renderProjLi (project) {
