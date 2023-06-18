@@ -12,14 +12,15 @@
       <div class="header">Todo List</div>
       <div class="row">
         <div class="sidebar col-md-3 d-flex flex-column pt-2 pb-2">
-          <button id="viewAllProjects" class="btn btn-outline-dark">Click me to see all projects</button>
             <form id="project-input-form" method="">
               <label for="projectName">Add Project</label>
               <input type="text" name="projectName" id="projectName" minlength="2" maxlength="25" placeholder="Add Project Here">
               <button type="submit">Submit</button>
             </form>
 
-          <ul class="project-list mt-2"></ul>
+          <ul class="project-list mt-2">
+            <li id="viewAllTasks" class="proj-li">All</li>
+          </ul>
 
         </div>
         <div class="content-container col-md-9">
@@ -45,7 +46,6 @@
 
               <button type="submit">Submit</button>
             </form>
-            <button id="viewAllTasks" class="btn btn-outline-dark">Click me to see all tasks</button>
             <ul id="task-list"></ul>
           </div>
         </div>
