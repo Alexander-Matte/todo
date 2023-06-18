@@ -13,7 +13,7 @@
       <div class="row">
         <div class="sidebar col-md-3 d-flex flex-column pt-2 pb-2">
           <button id="viewAllProjects" class="btn btn-outline-dark">Click me to see all projects</button>
-            <form id="projectForm" method="">
+            <form id="project-input-form" method="">
               <label for="projectName">Add Project</label>
               <input type="text" name="projectName" id="projectName" minlength="2" maxlength="25" placeholder="Add Project Here">
               <button type="submit">Submit</button>
@@ -25,17 +25,32 @@
         <div class="content-container col-md-9">
           <div class="content-header text-center mb-3">Title for which project is being displayed</div>
           <div class="content">
-            <div class="task-input-form">
-              <label for="add-task">Add Task</label>
-              <input type="text" name="add-task" id="add-task" minlength="2" maxlength="25" placeholder="Add task">
+            <form id="task-input-form">
+              <div class="task-title">
+                <label for="task-title">Task Title:</label>
+                <input type="text" name="task-title" id="task-title" minlength="2" maxlength="25" placeholder="Task Name">
+              </div>
+              <div class="task-desc">
+                <label for="task-desc">Description for Task</label>
+                <input type="text" name="task-desc" id="task-desc" minlength="2" maxlength="25" placeholder="Description">
+              </div>
+              <div class="task-due">
+                <label for="task-due">Due Date:</label>
+                <input type="text" name="task-due" id="task-due" minlength="2" maxlength="25" placeholder="dd-mm-yyyy">
+              </div>
+              <div class="task-prio">
+                <label for="task-prio">Priority:</label>
+                <input type="text" name="task-prio" id="task-prio" minlength="2" maxlength="25" placeholder="high,medium,low">
+              </div>
+
               <button type="submit">Submit</button>
-            </div>
+            </form>
             <button id="viewAllTasks" class="btn btn-outline-dark">Click me to see all tasks</button>
             <ul id="task-list"></ul>
           </div>
         </div>
       </div>
-
+      <button id="app-status">Show App status</button>
       <div class="footer">I AM THE FOOTER</div>
       
     </div>

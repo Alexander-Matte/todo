@@ -1,10 +1,5 @@
+import { updateContentHeader } from "../helpers";
 import { createTaskTemplate } from "../tpl/taskTemplate";
-
-export function renderProjects(arr) {
-    arr.forEach(project => {
-        console.log(project.name);
-    });
-}
 
 export function renderAllTasks(projectsArr) {
     projectsArr.forEach(project => {
@@ -23,8 +18,6 @@ export function renderTasks(project) {
         taskUl.appendChild(li);
     });
     
-
-
 }
 
 export function renderProjLi (project) {
@@ -33,26 +26,11 @@ export function renderProjLi (project) {
     let li = document.createElement("li");
     li.classList.add("proj-li");
     li.innerText = name;
-    li.addEventListener("click", () => {
-        renderProject(project);
-    })
     ul.appendChild(li);
 }
 
 export function renderProject (project) {
-    renderContentHeader(project);
+    updateContentHeader(project);
     renderTasks(project);
-    // let taskArr = project.tasks;
-    // if (!taskArr.length){
-    //     console.log("NO TASKS IN THIS PROJECT")
-    // } else {
-    //     taskArr.forEach(task => {
-    //         console.log(task);
-    //     })
-    // }
-}
 
-function renderContentHeader (project) {
-    document.querySelector(".content-header").innerText = project.name;
 }
-

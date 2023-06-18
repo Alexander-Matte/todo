@@ -1,74 +1,72 @@
 import { TaskApp } from "./components/TaskApp";
 import { Todo } from "./components/Todo";
-import { getProjectName, getSelectedProject } from "./helpers";
-import { renderProjects, renderAllTasks, renderProjLi, renderProject, renderTasks } from "./rendering/renderFuncs";
+import { captureTaskInputs, clearContent, getProjectName, getSelectedProject } from "./helpers";
+import { renderAllTasks, renderProjLi, renderProject, renderTasks } from "./rendering/renderFuncs";
+import { updateContentHeader } from "./helpers";
 
 
 // //initialize the app
 let taskApp = new TaskApp();
-renderProject(taskApp.getProject("All"));
-
-
-// Add test projects to the task app
-taskApp.addProject("Home");
-taskApp.addProject("school");
-taskApp.addProject("work");
-taskApp.addProject("backyard");
-
-// remove projects from the app
-// taskApp.removeProject("work");
-
-
-// add test tasks to the projects
-taskApp.projects[1].addTodo(new Todo("Hello1","testing", "21-21-21","low"));
-taskApp.projects[1].addTodo(new Todo("Hello2","testing", "21-21-21","low"));
-taskApp.projects[1].addTodo(new Todo("Hello3","testing", "21-21-21","low"));
-taskApp.projects[1].addTodo(new Todo("Hello4","testing", "21-21-21","low"));
-taskApp.projects[2].addTodo(new Todo("Hello2","tblahhhs", "35-56-18","Med"));
-taskApp.projects[3].addTodo(new Todo("asdfasdf3","testingasdfasdfsadf", "02-05-1969","high"));
-
-
-// //Removes a todo from the projects
-// taskApp.projects[2].removeTodo("Hello2");
-
-
-
-
-// //render projects tests
-//renderProjects(taskApp.projects);
-// renderTasks(taskApp.projects[2].tasks);
-
-
-
-const viewProjects = document.querySelector("#viewAllProjects");
-
-viewProjects.addEventListener("click", () => renderProjects(taskApp.projects));
-
+updateContentHeader(taskApp.getProject("All"));
+document.querySelector("#app-status").addEventListener("click", () => {
+    console.log(taskApp)
+})
+//used for testing displaying all todos
 const viewAllTasks = document.querySelector("#viewAllTasks");
-viewAllTasks.addEventListener("click", () => renderAllTasks(taskApp.projects));
+viewAllTasks.addEventListener("click", () => {
+    clearContent();
+    renderAllTasks(taskApp.projects)
 
-const form = document.querySelector("#projectForm");
+});
 
-form.addEventListener("submit", (e) => {
+//Adds project to app. Creates project LI.
+const projForm = document.querySelector("#project-input-form");
+projForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let projName = getProjectName();
     taskApp.addProject(projName);
     let project = taskApp.getProject(projName);
     renderProjLi(project);
-    taskApp.selected = getSelectedProject();
-    form.reset();
+    //Added logic whe project is clicked to display tasks for the project
+    let lastLi = document.querySelector(".project-list").lastChild;
+    lastLi.addEventListener("click", () => {
+        clearContent();
+        renderProject(project);
+        let selected = getSelectedProject();
+        taskApp.currentSelected = taskApp.getProject(selected);
+    })
+    projForm.reset();
 });
 
+//Logic for adding a todo to the project thats selected
+let taskForm = document.querySelector("#task-input-form");
+taskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    clearContent();
+    //grabs the current project thats selected
+    let currentProject = taskApp.currentSelected;
+    //When the form is submitted, I want to capture the values from the form
+    let taskInputs = captureTaskInputs();
+    //create todo from captured data
+    let task = new Todo(taskInputs.title, taskInputs.desc, taskInputs.due, taskInputs.prio)
+    //Then I want too add these todos into the correct project which is selected
+    currentProject.addTodo(task);
+    //Then I want to display the contents of that project with the new added toodoo
+    renderTasks(currentProject);
+
+
+    taskForm.reset();
+    
+})
 
 
 //TODO:
-//If one click on a project, it should update the header in content page and display the option to add a todo to the project.
-// On the app init, it should come preloaded with a project called "All" which displays all the todos of the app
+// Should I push every task into the project and the "All" project? Will have to look into how it is when deleting out of the project
 // Look into making a template for the content page for when a project doest have any todos. And then maybe a template for when a project does have todos
     // For example at the top of the page when a project has todos, maybe display "There are no todos in this project, click here to add a todo!"
 // Figure out how the user will enter their todo. z.B Modal? Static form at top of page?
 // How to persist data when page is refreshed. Look into how to store locally. Look at TOP instructions
-// 
+
 
 
 
