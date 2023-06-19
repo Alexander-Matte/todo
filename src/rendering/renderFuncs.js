@@ -1,4 +1,3 @@
-import { updateContentHeader } from "../helpers";
 import { createTaskTemplate } from "../tpl/taskTemplate";
 
 export function renderTasks(project) {
@@ -17,13 +16,11 @@ export function renderProjLi (project) {
     let name = project.name;
     let ul = document.querySelector(".project-list");
     let li = document.createElement("li");
+    let div = document.createElement("div");
+    div.classList.add("proj-name")
     li.classList.add("proj-li");
-    li.innerText = name;
+    div.innerText = name
+    li.appendChild(div);
     ul.appendChild(li);
-}
-
-export function renderProject (project) {
-    updateContentHeader(project);
-    renderTasks(project);
-
+    return li
 }
