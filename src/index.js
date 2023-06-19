@@ -3,6 +3,11 @@ import { Todo } from "./components/Todo";
 import { captureTaskInputs, clearContent, getProjectName, getSelectedProject } from "./helpers";
 import { renderProjLi, renderProject, renderTasks } from "./rendering/renderFuncs";
 import { updateContentHeader } from "./helpers";
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+
 
 
 // //initialize the app
@@ -17,6 +22,7 @@ document.querySelector("#app-status").addEventListener("click", () => {
 const viewAllTasks = document.querySelector("#viewAllTasks");
 viewAllTasks.addEventListener("click", () => {
     clearContent();
+    taskApp.currentSelected = defaultProject;
     renderTasks(defaultProject);
     updateContentHeader(defaultProject);
 
@@ -29,14 +35,14 @@ projForm.addEventListener("submit", (e) => {
     let projName = getProjectName();
     taskApp.addProject(projName);
     let project = taskApp.getProject(projName);
-    renderProjLi(project);
-    //Added logic whe project is clicked to display tasks for the project
-    let lastLi = document.querySelector(".project-list").lastChild;
-    lastLi.addEventListener("click", (e) => {
-        let projName = e.target.innerHTML;
+    let renderedLi = renderProjLi(project);
+    renderedLi.addEventListener("click", (e) => {
         clearContent();
-        renderProject(project);
+        const elementClicked = e.target;
+        let projName = elementClicked.textContent
         taskApp.currentSelected = taskApp.getProject(projName);
+        updateContentHeader(taskApp.currentSelected)
+        renderTasks(taskApp.currentSelected);
     })
     projForm.reset();
 });
