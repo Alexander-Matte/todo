@@ -30,6 +30,15 @@ body {
     border: 1px solid forestgreen;
 }
 
+.project-list {
+    padding: 5px;
+}
+
+.proj-li {
+    display: flex;
+    justify-content: space-between;
+}
+
 .proj-li, .task-li{
     list-style-type: none;
 }
@@ -43,6 +52,10 @@ body {
 .task-li .btn-group {
     display: flex;
     gap: 5px;
+}
+
+#project-input-form {
+    padding: 5px;
 }
 
 
