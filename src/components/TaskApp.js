@@ -15,13 +15,22 @@ export class TaskApp {
         this.projects.push(proj);
     }
 
-    removeProject (projectName) {
+    removeProject (project) {
         for (let i = this.projects.length - 1; i >= 0; --i) {
-            if (this.projects[i].name === projectName) {
+            if (this.projects[i].name === project.name) {
                 this.projects.splice(i,1);
             }
         }
     }
+
+    removeTask (project,task){
+        for (let i = project.tasks.length - 1; i >= 0; --i) {
+            if (project.tasks[i] === task) {
+                project.tasks.splice(i,1);
+            }
+        }
+    }
+
     //returns the project object from array
     getProject (projectName) {
         for (let i = this.projects.length - 1; i >= 0; --i) {
@@ -30,5 +39,6 @@ export class TaskApp {
             }
         }
     }
+
 
 }
