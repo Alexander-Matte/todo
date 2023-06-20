@@ -4,8 +4,8 @@ export function createTaskTemplate (task) {
 <div class="task-due">${task.dueDate}</div>
 <div class="task-prio">${task.prio}</div>
 <div class="btn-group">
-<button class="edit">edit</button>
-<button class="remove">remove</button>
+<button class="btn btn-dark edit-todo">edit</button>
+<button class="btn btn-danger remove-todo">remove</button>
 </div>
 `
     return taskContent;
