@@ -37,6 +37,17 @@ body {
 .proj-li {
     display: flex;
     justify-content: space-between;
+    margin: 5px 0;
+}
+
+.proj-li .btn-danger {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .proj-li, .task-li{
@@ -46,7 +57,9 @@ body {
 .task-li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
+    margin: 10px 5px;
 }
 
 .task-li .btn-group {
@@ -58,4 +71,10 @@ body {
     padding: 5px;
 }
 
+.edit-proj {
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+}
 
