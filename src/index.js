@@ -1,7 +1,7 @@
 import { TaskApp } from "./components/TaskApp";
 import { Todo } from "./components/Todo";
-import { captureTaskInputs, clearContent, getProjectName, getSelectedProject } from "./helpers";
-import { renderProjLi, renderProject, renderTasks } from "./rendering/renderFuncs";
+import { captureTaskInputs, clearContent, getProjectName } from "./helpers";
+import { renderProjLi, renderTasks } from "./rendering/renderFuncs";
 import { updateContentHeader } from "./helpers";
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -24,25 +24,41 @@ viewAllTasks.addEventListener("click", () => {
     clearContent();
     taskApp.currentSelected = defaultProject;
     renderTasks(defaultProject);
+    handleRemoveTodo()
     updateContentHeader(defaultProject);
 
 });
 
 //Adds project to app. Creates project Li.
 const projForm = document.querySelector("#project-input-form");
-projForm.addEventListener("submit", (e) => {
+projForm.addEventListener("submit", function (e) {
     e.preventDefault();
     let projName = getProjectName();
     taskApp.addProject(projName);
     let project = taskApp.getProject(projName);
     let renderedLi = renderProjLi(project);
-    renderedLi.addEventListener("click", (e) => {
+    //Find better solution for selecting elements to add listeners too
+    let editProj = renderedLi.childNodes[1].firstChild;
+    let liProjName = renderedLi.firstChild;
+    let projDeletebtn = renderedLi.lastElementChild.lastElementChild;
+    liProjName.addEventListener("click", function (e) {
         clearContent();
-        const elementClicked = e.target;
-        let projName = elementClicked.textContent
-        taskApp.currentSelected = taskApp.getProject(projName);
-        updateContentHeader(taskApp.currentSelected)
-        renderTasks(taskApp.currentSelected);
+        taskApp.currentSelected = project;
+        updateContentHeader(project)
+        renderTasks(project);
+        handleRemoveTodo()
+    })
+    projDeletebtn.addEventListener("click", function (e) {
+        clearContent();
+        taskApp.removeProject(project);
+        renderedLi.remove()
+        taskApp.currentSelected = defaultProject;
+        updateContentHeader(defaultProject)
+        renderTasks(defaultProject)
+        handleRemoveTodo()
+    })
+    editProj.addEventListener("click", function (e) {
+        console.log("edit Project!!")
     })
     projForm.reset();
 });
@@ -61,16 +77,17 @@ taskForm.addEventListener("submit", (e) => {
         currentProject.addTodo(task);
         defaultProject.addTodo(task);
     }
-    
     renderTasks(currentProject);
+    handleRemoveTodo()
     taskForm.reset();
     
 })
 
 
 //TODO:
-// Build project remove logic
-// build remove todo logic
+// Build project remove logic --> DONE. Should deleting a project delete all the todos from the "All" project? Look into building
+//  modal that you can choose to delete all todos globally or to keep the todos but delete the project
+// build remove todo logic --> DONE --> When one deletes a Task from a project, should it also delete it from the "All" Project?
 // Build edit todo logic
 // Build edit project logig
 
@@ -79,11 +96,23 @@ taskForm.addEventListener("submit", (e) => {
 // Build a button at top of page that brings a modal to add a todo
 // How to persist data when page is refreshed. Look into how to store locally. Look at TOP instructions
 // create project validation that every project has a unique name
-// 
+//
 
 
 
 
+function handleRemoveTodo (e) {
+    let deleteTodoBtns = document.querySelectorAll(".remove-todo");
+    deleteTodoBtns.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            let todoLi = this.parentElement.parentElement;
+            let taskName = todoLi.firstElementChild.textContent;
+            let currentProject = taskApp.currentSelected;
+            currentProject.removeTodo(taskName);
+            todoLi.remove();  
+        })
+    })
+}
 
 
 
