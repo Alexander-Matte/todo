@@ -21,4 +21,3 @@ export function captureTaskInputs() {
 export function updateContentHeader (project) {
     document.querySelector(".content-header").innerText = project.name;
 }
-
