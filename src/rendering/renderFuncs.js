@@ -34,7 +34,7 @@ function renderProjDeleteBtn () {
     let btn = document.createElement("button");
     let icon = document.createElement("icon");
     btn.classList.add("btn","btn-danger");
-    icon.innerText = "X"
+    icon.classList.add("fa-solid", "fa-trash")
     btn.appendChild(icon);
     return btn;
 
