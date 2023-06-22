@@ -1,7 +1,7 @@
 import { TaskApp } from "./components/TaskApp";
 import { Todo } from "./components/Todo";
 import { captureTaskInputs, clearContent, getProjectName } from "./helpers";
-import { renderProjLi, renderTasks } from "./rendering/renderFuncs";
+import { renderEditInput, renderProjLi, renderTasks } from "./rendering/renderFuncs";
 import { updateContentHeader } from "./helpers";
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -38,7 +38,7 @@ projForm.addEventListener("submit", function (e) {
     let project = taskApp.getProject(projName);
     let renderedLi = renderProjLi(project);
     //Find better solution for selecting elements to add listeners too
-    let editProj = renderedLi.childNodes[1].firstChild;
+    let editProjBtn = renderedLi.childNodes[1].firstChild;
     let liProjName = renderedLi.firstChild;
     let projDeletebtn = renderedLi.lastElementChild.lastElementChild;
     liProjName.addEventListener("click", function (e) {
@@ -57,8 +57,24 @@ projForm.addEventListener("submit", function (e) {
         renderTasks(defaultProject)
         handleRemoveTodo()
     })
-    editProj.addEventListener("click", function (e) {
-        console.log("edit Project!!")
+    editProjBtn.addEventListener("click", function (e) {
+        let div = renderedLi.firstElementChild;
+        div.setAttribute("contenteditable","true")
+        //When edit button is clicked, then add css to content edible field so user knows they can edit it
+        // Swap out the edit icon for the save icon. Once content is changed! if its the same, then leave edit icon.
+        // If the save button is clicked, then update the projects name and cancel out from the conent editible field.
+        div.addEventListener("keypress", function (e) {
+            if(e.key === "Enter") {
+                project.name = this.textContent;
+                taskApp.currentSelected = project;
+                updateContentHeader(taskApp.currentSelected);
+                this.setAttribute("contenteditable", "false");
+            }
+        })
+
+        // once save is clicked, switch icon back to edit
+        
+
     })
     projForm.reset();
 });
@@ -79,6 +95,7 @@ taskForm.addEventListener("submit", (e) => {
     }
     renderTasks(currentProject);
     handleRemoveTodo()
+    handleEditTodo();
     taskForm.reset();
     
 })
@@ -97,7 +114,16 @@ taskForm.addEventListener("submit", (e) => {
 // How to persist data when page is refreshed. Look into how to store locally. Look at TOP instructions
 // create project validation that every project has a unique name
 //
+function handleEditTodo (e) {
+    let editBtns = document.querySelectorAll(".edit-todo");
+    editBtns.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            console.log(this.parentElement.parentElement)
+        })
 
+    })
+
+}
 
 
 
@@ -113,10 +139,6 @@ function handleRemoveTodo (e) {
         })
     })
 }
-
-
-
-
 
 
 
