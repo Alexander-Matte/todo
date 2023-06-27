@@ -4,7 +4,7 @@ export function createTaskTemplate (task) {
 <div class="task-due">${task.dueDate}</div>
 <div class="task-prio">${task.prio}</div>
 <div class="btn-group">
-<button type="button" class="btn btn-primary edit-todo">Edit</button>
+<button type="button" class="btn btn-primary edit-todo" data-bs-toggle="modal" data-bs-target="#editTaskModal">Edit</button>
 <button class="btn btn-danger remove-todo">remove</button>
 </div>
 `
