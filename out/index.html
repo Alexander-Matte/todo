@@ -24,29 +24,95 @@
 
         </div>
         <div class="content-container col-md-9">
-          <div class="content-header text-center mb-3">Title for which project is being displayed</div>
+          <div class="content-header text-center mb-3"></div>
           <div class="content">
-            <form id="task-input-form">
-              <div class="task-title">
-                <label for="task-title">Task Title:</label>
-                <input type="text" name="task-title" id="task-title" minlength="2" maxlength="25" placeholder="Task Name">
-              </div>
-              <div class="task-desc">
-                <label for="task-desc">Description for Task</label>
-                <input type="text" name="task-desc" id="task-desc" minlength="2" maxlength="25" placeholder="Description">
-              </div>
-              <div class="task-due">
-                <label for="task-due">Due Date:</label>
-                <input type="text" name="task-due" id="task-due" minlength="2" maxlength="25" placeholder="dd-mm-yyyy">
-              </div>
-              <div class="task-prio">
-                <label for="task-prio">Priority:</label>
-                <input type="text" name="task-prio" id="task-prio" minlength="2" maxlength="25" placeholder="high,medium,low">
-              </div>
 
-              <button type="submit">Submit</button>
-            </form>
+            <!-- Button trigger modal -->
+            <div class="add-task d-flex justify-content-center">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                Add Task
+              </button>
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="task-input-form">
+                      <div class="task-title">
+                        <label for="task-title">Task Title:</label>
+                        <input type="text" name="task-title" id="task-title" minlength="2" maxlength="25" placeholder="Task Name">
+                      </div>
+                      <div class="task-desc">
+                        <label for="task-desc">Description for Task</label>
+                        <input type="text" name="task-desc" id="task-desc" minlength="2" maxlength="25" placeholder="Description">
+                      </div>
+                      <div class="task-due">
+                        <label for="task-due">Due Date:</label>
+                        <input type="text" name="task-due" id="task-due" minlength="2" maxlength="25" placeholder="dd-mm-yyyy">
+                      </div>
+                      <div class="task-prio">
+                        <label for="task-prio">Priority:</label>
+                        <input type="text" name="task-prio" id="task-prio" minlength="2" maxlength="25" placeholder="high,medium,low">
+                      </div>
+                      <div class="modal-footer">
+                        <button id="modal-add-close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="Submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+
             <ul id="task-list"></ul>
+            <!-- edit todo modal -->
+            <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="task-edit-form">
+                      <div class="task-title">
+                        <label for="task-title">Task Title:</label>
+                        <input type="text" name="task-title" id="task-title" minlength="2" maxlength="25" placeholder="Task Name">
+                      </div>
+                      <div class="task-desc">
+                        <label for="task-desc">Description for Task</label>
+                        <input type="text" name="task-desc" id="task-desc" minlength="2" maxlength="25" placeholder="Description">
+                      </div>
+                      <div class="task-due">
+                        <label for="task-due">Due Date:</label>
+                        <input type="text" name="task-due" id="task-due" minlength="2" maxlength="25" placeholder="dd-mm-yyyy">
+                      </div>
+                      <div class="task-prio">
+                        <label for="task-prio">Priority:</label>
+                        <input type="text" name="task-prio" id="task-prio" minlength="2" maxlength="25" placeholder="high,medium,low">
+                      </div>
+                      <div class="modal-footer">
+                        <button id="modal-edit-close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="modal-save-close" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -54,5 +120,10 @@
       <div class="footer">I AM THE FOOTER</div>
       
     </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
