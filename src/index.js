@@ -81,7 +81,7 @@ projForm.addEventListener("submit", function (e) {
 
 //Logic for adding a todo to the project thats selected
 let taskForm = document.querySelector("#task-input-form");
-taskForm.addEventListener("submit", (e) => {
+taskForm.addEventListener("submit", function (e) {
     e.preventDefault();
     clearContent();
     let currentProject = taskApp.currentSelected;
@@ -115,15 +115,29 @@ taskForm.addEventListener("submit", (e) => {
 // create project validation that every project has a unique name
 //
 function handleEditTodo (e) {
+    let editTaskForm = document.querySelector("#task-edit-form");
+    document.querySelector("#modal-edit-close").addEventListener("click", function(e) {
+        editTaskForm.reset();
+    })
     let editBtns = document.querySelectorAll(".edit-todo");
     editBtns.forEach(btn => {
         btn.addEventListener("click", function (e) {
-            console.log(this.parentElement.parentElement)
+            let taskName = this.parentElement.parentElement.firstElementChild.textContent;
+            let result = taskApp.currentSelected.tasks.find(item => item.title === taskName);
+            console.log(result)
         })
 
     })
-
 }
+
+let editTaskForm = document.querySelector("#task-edit-form");
+editTaskForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    getData(this);
+    this.reset();
+
+})
+
 
 
 
@@ -139,6 +153,30 @@ function handleRemoveTodo (e) {
         })
     })
 }
+
+document.querySelector("#modal-add-close").addEventListener("click", (e) => {
+    taskForm.reset();
+})
+
+
+//Move this to helpers and use for capturing original inputs TODO!!
+function getData(form) {
+    let formData = new FormData(form);
+
+    // ...or output as an object
+    let result = Object.fromEntries(formData);
+    let updatedTitle = result["task-title"];
+    let updatedDesc = result["task-desc"];
+    let updatedDue = result["task-due"];
+    let updatedPrio = result["task-prio"];
+    console.log(updatedTitle, updatedDesc, updatedDue, updatedPrio);
+
+    // Start here! Update task in project and redisplay the task
+    
+};
+
+
+
 
 
 
