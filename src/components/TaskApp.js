@@ -23,14 +23,6 @@ export class TaskApp {
         }
     }
 
-    removeTask (project,task){
-        for (let i = project.tasks.length - 1; i >= 0; --i) {
-            if (project.tasks[i] === task) {
-                project.tasks.splice(i,1);
-            }
-        }
-    }
-
     //returns the project object from array
     getProject (projectName) {
         for (let i = this.projects.length - 1; i >= 0; --i) {
