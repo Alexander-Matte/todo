@@ -6,7 +6,7 @@ export class TaskApp {
 
     constructor(){
         console.log("App Started");
-        this.addProject("All");
+        this.init("All");
         this.currentSelected = this.getProject("All");
     }
 
@@ -30,6 +30,11 @@ export class TaskApp {
                 return this.projects[i];
             }
         }
+    }
+
+    init(defaultProject) {
+        let proj = new Project(defaultProject)
+        this.projects.push(proj);
     }
 
 
