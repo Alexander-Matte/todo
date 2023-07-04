@@ -1,9 +1,8 @@
 import { TaskApp } from "./components/TaskApp";
 import { Todo } from "./components/Todo";
 import { captureTaskInputs, clearContent, getProjectName } from "./helpers";
-import { renderEditInput, renderProjLi, renderTasks } from "./rendering/renderFuncs";
+import { renderProjLi, renderTasks } from "./rendering/renderFuncs";
 import { updateContentHeader } from "./helpers";
-import { isEqual, uniq } from 'lodash';
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
@@ -35,7 +34,13 @@ const projForm = document.querySelector("#project-input-form");
 projForm.addEventListener("submit", function (e) {
     e.preventDefault();
     let projName = getProjectName();
-    taskApp.addProject(projName);
+    if(taskApp.projects.some(project => project.name === projName)){
+        alert("Object found inside the array.");
+        projForm.reset();
+        return
+    } else{
+        taskApp.addProject(projName);
+    }
     let project = taskApp.getProject(projName);
     let renderedLi = renderProjLi(project);
     //Find better solution for selecting elements to add listeners too
@@ -60,22 +65,36 @@ projForm.addEventListener("submit", function (e) {
     })
     editProjBtn.addEventListener("click", function (e) {
         let div = renderedLi.firstElementChild;
-        div.setAttribute("contenteditable","true")
-        //When edit button is clicked, then add css to content edible field so user knows they can edit it
-        // Swap out the edit icon for the save icon. Once content is changed! if its the same, then leave edit icon.
-        // If the save button is clicked, then update the projects name and cancel out from the conent editible field.
-        div.addEventListener("keypress", function (e) {
-            if(e.key === "Enter") {
+        let icon = this.firstElementChild;
+        if(icon.classList.contains("fa-pen-to-square")){
+            icon.classList.remove("fa-pen-to-square");
+            icon.classList.add("fa-floppy-disk");
+            this.style.background = "green";
+            div.setAttribute("contenteditable","true")
+            div.focus();
+        } else {
+            icon.classList.remove("fa-floppy-disk");
+            icon.classList.add("fa-pen-to-square");
+            this.style.background = "black";
+            div.setAttribute("contenteditable","false");
+            div.blur();
+        }
+        div.addEventListener("blur", function(e) {
+            let icon = editProjBtn.firstElementChild;
+            let newName = e.target.innerText
+            if (taskApp.getProject(newName)) {
+                return
+            } else {
                 project.name = this.textContent;
                 taskApp.currentSelected = project;
                 updateContentHeader(taskApp.currentSelected);
-                this.setAttribute("contenteditable", "false");
             }
+            icon.classList.remove("fa-floppy-disk");
+            icon.classList.add("fa-pen-to-square");
+            editProjBtn.style.background = "black";
+            div.setAttribute("contenteditable","false")
+
         })
-
-        // once save is clicked, switch icon back to edit
-        
-
     })
     projForm.reset();
 });
@@ -107,9 +126,6 @@ let editTaskModal = document.querySelector("#task-edit-form");
 editTaskModal.addEventListener("submit", function(e){
     e.preventDefault();
     let currentProject = taskApp.currentSelected;
-    // when i submit, i want to take the new todo information and replace the old todo in the project
-
-    //Capture new todo info
     let updatedTask = getData(this);
     if(currentProject.tasks.includes(taskToEdit)) {
         let i = currentProject.tasks.indexOf(taskToEdit);
