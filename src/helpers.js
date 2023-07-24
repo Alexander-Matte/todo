@@ -10,6 +10,7 @@ export function clearContent() {
     })
 }
 
+
 export function captureTaskInputs() {
     let title = document.querySelector("#task-title").value;
     let desc = document.querySelector("#task-desc").value;
@@ -21,3 +22,4 @@ export function captureTaskInputs() {
 export function updateContentHeader (project) {
     document.querySelector(".content-header").innerText = project.name;
 }
+

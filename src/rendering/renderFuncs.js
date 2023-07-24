@@ -44,6 +44,8 @@ function renderProjEditBtn () {
     let btn = document.createElement("button");
     let icon = document.createElement("icon");
     btn.classList.add("btn","btn-dark", "edit-proj", "d-flex");
+    btn.setAttribute("data-bs-toggle", "modal");
+    btn.setAttribute("data-bs-target", "#edit-proj-modal");
     icon.classList.add("fa-regular", "fa-pen-to-square")
     btn.appendChild(icon);
     return btn;

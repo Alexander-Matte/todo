@@ -35,7 +35,7 @@ projForm.addEventListener("submit", function (e) {
     e.preventDefault();
     let projName = getProjectName();
     if(taskApp.projects.some(project => project.name === projName)){
-        alert("Object found inside the array.");
+        alert("There is already a project with this name.");
         projForm.reset();
         return
     } else{
@@ -63,41 +63,48 @@ projForm.addEventListener("submit", function (e) {
         renderTasks(defaultProject)
         handleRemoveTodo()
     })
-    editProjBtn.addEventListener("click", function (e) {
-        let div = renderedLi.firstElementChild;
-        let icon = this.firstElementChild;
-        if(icon.classList.contains("fa-pen-to-square")){
-            icon.classList.remove("fa-pen-to-square");
-            icon.classList.add("fa-floppy-disk");
-            this.style.background = "green";
-            div.setAttribute("contenteditable","true")
-            div.focus();
-        } else {
-            icon.classList.remove("fa-floppy-disk");
-            icon.classList.add("fa-pen-to-square");
-            this.style.background = "black";
-            div.setAttribute("contenteditable","false");
-            div.blur();
-        }
-        div.addEventListener("blur", function(e) {
-            let icon = editProjBtn.firstElementChild;
-            let newName = e.target.innerText
-            if (taskApp.getProject(newName)) {
-                return
-            } else {
-                project.name = this.textContent;
-                taskApp.currentSelected = project;
-                updateContentHeader(taskApp.currentSelected);
-            }
-            icon.classList.remove("fa-floppy-disk");
-            icon.classList.add("fa-pen-to-square");
-            editProjBtn.style.background = "black";
-            div.setAttribute("contenteditable","false")
 
-        })
-    })
+    editProjBtn.addEventListener("click", function (e) {
+        projToEdit = project
+
+    });
+        
     projForm.reset();
 });
+
+let projToEdit;
+
+let form = document.querySelector("#edit-proj-form");
+form.addEventListener("submit", function(e) {
+    let name = document.querySelector("#edited-proj-name").value;
+    e.preventDefault();
+    if (projToEdit.name === name) {
+        form.reset();
+        return;
+    } else if (taskApp.projects.some(project => project.name === name)) {
+        alert("There is already a project with this name!")
+    } else {
+        let projDivs = document.querySelectorAll(".proj-name");
+        projDivs = Array.from(projDivs);
+        for (let i = 0; i < projDivs.length; i++) {
+            if(projDivs[i].textContent === projToEdit.name) {
+                projDivs[i].textContent = name
+            }
+        }
+        projToEdit.name = name;
+        updateContentHeader(projToEdit);
+        taskApp.currentSelected = projToEdit;
+        clearContent()
+        renderTasks(taskApp.currentSelected);
+    }
+
+    form.reset();
+
+
+
+})
+
+
 
 //Logic for adding a todo to the project thats selected
 let taskForm = document.querySelector("#task-input-form");
@@ -107,12 +114,20 @@ taskForm.addEventListener("submit", function (e) {
     let currentProject = taskApp.currentSelected;
     let taskInputs = captureTaskInputs();
     let task = new Todo(taskInputs.title, taskInputs.desc, taskInputs.due, taskInputs.prio)
-    if(currentProject === defaultProject) {
-        defaultProject.addTodo(task);
-    } else {
-        currentProject.addTodo(task);
-        defaultProject.addTodo(task);
+    if(currentProject.tasks.some(todo => todo.title === task.title)){
+        alert("There is already a task with this title. Please create a new task.");
+        taskForm.reset();
+        renderTasks(currentProject);
+        return
+    } else{
+        if(currentProject === defaultProject) {
+            defaultProject.addTodo(task);
+        } else {
+            currentProject.addTodo(task);
+            defaultProject.addTodo(task);
+        }
     }
+
     renderTasks(currentProject);
     captureTaskToEdit(currentProject);
     handleRemoveTodo()
@@ -163,6 +178,7 @@ function handleRemoveTodo (e) {
     let deleteTodoBtns = document.querySelectorAll(".remove-todo");
     deleteTodoBtns.forEach(btn => {
         btn.addEventListener("click", function (e) {
+            alert("This will delete the task ONLY for the selected")
             let todoLi = this.parentElement.parentElement;
             let taskName = todoLi.firstElementChild.textContent;
             let currentProject = taskApp.currentSelected;
@@ -186,10 +202,7 @@ function getData(form) {
     let dueDate = result["task-due"];
     let prio = result["task-prio"];
     return {title, description, dueDate, prio};
-
-    
 };
-
 
 //TODO:
 
@@ -200,7 +213,7 @@ function getData(form) {
 // create project validation that every project has a unique name and Task!
 // When one deletes a Task from a project, should it also delete it from the "All" Project? Also if one deletes a project with lots of tasks, should this delete the tasks
     //from the "All" project?
-// Add CSS to editing project when clicked. maybe make the input box all red and switch the icon out with a save icon
+// Logic to check when a project name is edited, check if its already been inputed and if it has, then set it back to the old value
 
 
 

@@ -40,6 +40,14 @@ body {
     margin: 5px 0;
 }
 
+.proj-name {
+    width: 80%;
+}
+
+#projectName {
+    max-width: 70%;
+}
+
 .proj-li .btn-danger {
     width: 25px;
     height: 25px;
